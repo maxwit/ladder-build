@@ -1,0 +1,14 @@
+---
+# vars file for roles/javascript
+
+node_install_list:
+  - --lts
+  # - node
+
+util_install_list:
+  - yarn
+  - cnpm
+  - typescript
+  - bower
+  - grunt
+  - gulp

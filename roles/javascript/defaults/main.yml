@@ -1,0 +1,5 @@
+---
+# defaults file for roles/javascript
+
+# environment:
+#   NVM_DIR: "{{ ansible_env.HOME }}/.nvm"

@@ -1,0 +1,17 @@
+---
+
+- name: create temp file
+  tempfile:
+  register: temp_pip_py
+
+- name: download pip installation script
+  shell: curl -o '{{temp_pip_py.path}}' https://bootstrap.pypa.io/get-pip.py
+  #get_url:
+  #  dest: '{{ temp_pip_py.path }}'
+  #  url: https://bootstrap.pypa.io/get-pip.py
+  #  force: yes
+  #  mode: u+x
+
+- name: run pip installation script
+  become: yes
+  shell: python {{ temp_pip_py.path }} --prefix=/usr

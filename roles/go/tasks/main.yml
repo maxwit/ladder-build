@@ -1,0 +1,8 @@
+---
+# tasks file for roles/go
+
+- name: install golang
+  become: '{{ pm_become }}'
+  action: >
+    {{ ansible_pkg_mgr }} name=golang state=present
+  when: ansible_os_family != 'Darwin'

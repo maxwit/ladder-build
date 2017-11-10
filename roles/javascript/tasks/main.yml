@@ -1,0 +1,49 @@
+---
+# tasks file for roles/javascript
+
+- name: check if nvm is installed
+  stat:
+    path: '{{ ansible_env.HOME }}/.nvm/nvm.sh'
+  register: nvm
+
+- name: install nvm
+  include_tasks: nvm.yml
+  when: not nvm.stat.exists
+
+# TODO: --lts=carbon/boron
+- name: install node
+  shell: '. {{ ansible_env.HOME }}/.nvm/nvm.sh && nvm install {{ item }}'
+  with_items: [ '{{ node_install_list }}' ]
+
+# TODO: set default
+
+- name: get the path of default node
+  shell: '. {{ ansible_env.HOME }}/.nvm/nvm.sh && nvm use --silent --lts && which node'
+  changed_when: false
+  # with_items: [ '{{ node_install_list }}' ]
+  # notify: show node info
+  register: nodes_info
+
+# - set_fact:
+#   vars:
+#     exec_list:
+#   args:
+#     exec_list: '{{ exec_list }} [bb]'
+#   with_items: [ '{{ nodes_info.results }}' ]
+#
+# - debug:
+#     msg: '{{ exec_list }}'
+
+- name: install JavaScript utilities
+  vars:
+    bin_dir: '{{ nodes_info.stdout | dirname }}'
+  npm:
+    name: '{{ item }}'
+    global: yes
+    state: present
+    # registry: https://registry.npm.taobao.org
+    executable: '{{ bin_dir }}/npm'
+  environment:
+    NVM_DIR: '{{ ansible_env.HOME }}/.nvm'
+    PATH: '{{ bin_dir }}:{{ ansible_env.PATH }}'
+  with_items: ['{{ util_install_list }}']

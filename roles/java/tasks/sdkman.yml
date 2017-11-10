@@ -1,0 +1,17 @@
+---
+
+- name: create temp file
+  tempfile:
+  register: temp_sdkman_sh
+
+- name: download sdkman installation script
+  shell: curl -o '{{temp_sdkman_sh.path}}' https://get.sdkman.io
+  #get_url:
+  #  dest: '{{ temp_sdkman_sh.path }}'
+  #  url: https://get.sdkman.io
+  #  force: yes
+  #  mode: u+x
+  #  use_proxy: yes
+
+- name: run sdkman installation script
+  shell: bash '{{ temp_sdkman_sh.path }}'

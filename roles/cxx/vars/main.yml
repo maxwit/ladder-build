@@ -1,0 +1,7 @@
+---
+# vars file for cxx
+pkgs:
+  debian:
+    - g++
+  redhat:
+    - gcc-c++

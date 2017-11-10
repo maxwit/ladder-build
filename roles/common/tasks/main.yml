@@ -1,0 +1,40 @@
+---
+# tasks file for common
+
+# FIXME
+- set_fact:
+    pm_become: no
+  when: ansible_os_family == 'Darwin'
+
+- name: change default sh to bash
+  become: yes
+  file:
+    src: bash
+    path: /bin/sh
+    state: link
+  when: ansible_os_family == 'Debian'
+
+#- name: Check to see if curl is already installed
+#  command: "curl --version"
+#  ignore_errors: true
+#  changed_when: false
+#  check_mode: no
+#  register: curl_installed
+#
+#- name: install curl
+#  become: yes
+#  action: >
+#    {{ ansible_pkg_mgr }} name=curl state=present
+#  when: not curl_installed
+
+- name: install git, vagrant
+  become: '{{ pm_become }}'
+  action: >
+    {{ ansible_pkg_mgr }} name={{ item }} state=present
+  with_items:
+    - git
+    - vagrant
+
+- name: macOS init
+  include_tasks: macos.yml
+  when: ansible_os_family == 'Darwin'

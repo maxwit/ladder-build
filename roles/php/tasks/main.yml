@@ -1,0 +1,29 @@
+---
+# tasks file for roles/php
+
+# TODO: add version selection support
+
+- name: tap php
+  homebrew_tap: name=homebrew/dupes state=present
+  when: ansible_os_family == 'Darwin'
+
+- name: install php
+  apt: name=php state=present
+  # yum: name=php state=latest
+  # when: ansible_distribution == "CentOS"
+- name: install composer
+  shell: curl -o- https://getcomposer.org/installer | php -- --install-dir=$HOME/.local/bin --filename=composer
+
+- name: add $HOME/.composer to PATH
+  lineinfile: dest="{{ nvm_working_path }}/.bashrc" line="export PATH=$HOME/.composer/vendor/bin:$PATH"
+
+# just for testing:
+# - name: init a php project
+#   composer:
+#     command: init
+#     working_dir: /tmp/aa
+# - name: install laravel
+#   composer:
+#     command: require
+#     arguments: laravel/laravel
+#     working_dir: /tmp/aa

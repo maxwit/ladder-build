@@ -1,0 +1,29 @@
+---
+# tasks file for java
+
+- name: check if sdkman is installed
+  stat:
+    path: '{{ ansible_env.HOME }}/.sdkman/bin/sdkman-init.sh'
+  register: st
+
+- name: install sdkman
+  include_tasks: sdkman.yml
+  when: not st.stat.exists
+
+- name: install java-based languages
+  shell: '. {{ ansible_env.HOME }}/.sdkman/bin/sdkman-init.sh && sdk install {{ item }}'
+  environment:
+    SDKMAN_DIR: '{{ ansible_env.HOME }}/.sdkman'
+  with_items: '{{ java_lang_list }}'
+
+# - name: check install
+#   command: sdk list {{ item }}
+#   with_items:
+#     - java
+#     - maven
+#     - gradle
+#     - springboot
+#     - groovy
+#     - scala
+#     - kotlin
+#     - sbt

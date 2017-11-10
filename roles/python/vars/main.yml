@@ -1,0 +1,5 @@
+---
+# vars file for roles/python
+
+profile_path:
+  '{{ ansible_env.HOME }}/.bashrc'

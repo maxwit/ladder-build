@@ -1,0 +1,59 @@
+---
+# tasks file for roles/python
+
+# TODO: check 2.7 & 3.x, and install both of them
+
+- name: Check to see if pip is already installed
+  command: pip --version
+  ignore_errors: true
+  changed_when: false
+  check_mode: no
+  register: pip_installed
+  # FIXME
+  environment:
+    PATH: '/usr/local/bin:{{ ansible_env.PATH }}'
+
+- name: install python pip
+  become: yes
+#   action: >
+#     {{ ansible_pkg_mgr }} name={{ item }} state=present
+#   with_items:
+#     - "{{ pkgs[ansible_os_family | lower] }}"
+#   when: ansible_os_family != 'Darwin'
+  include_tasks: pip.yml
+  when: not pip_installed
+
+- name: get user site package path
+  command: python -m site --user-site
+  changed_when: false
+  register: user_site
+
+- name: get user site binary path
+  set_fact:
+    user_site_bin: '{{ user_site.stdout | regex_replace("/lib/.*", "/bin") }}'
+  changed_when: false
+
+- name: 'add {{ user_site_bin }} to {{ profile_path }}'
+  lineinfile:
+    dest: '{{ profile_path }}'
+    line: 'export PATH={{ user_site_bin }}:$PATH'
+
+- name: install virtualenvwrapper
+  pip: name=virtualenvwrapper state=present extra_args='--user'
+  environment:
+    PATH: '/usr/local/bin:{{ ansible_env.PATH }}'
+
+# does the pip module support the 'show' command?
+- name: get virtualenvwrapper
+  command: 'pip show virtualenvwrapper'
+  register: vew_info
+  changed_when: false
+  environment:
+    PATH: '/usr/local/bin:{{ ansible_env.PATH }}'
+
+- name: source virtualenvwrapper.sh
+  vars:
+    vew_sh: "{{ vew_info.stdout_lines[-2].split()[1] | regex_replace('/lib/.*', '/bin') }}/virtualenvwrapper.sh"
+  lineinfile:
+    path: '{{ ansible_env.HOME }}/.bashrc'
+    line: '. {{ vew_sh | replace(ansible_env.HOME, "$HOME") }}'

@@ -1,0 +1,24 @@
+---
+- hosts: master
+
+  vars:
+    - pm_become: yes
+
+  # vars_files:
+  #  - "vars/{{ ansible_os_family | lower }}.yml"
+  #
+  # tasks:
+  #  - debug:
+  #      msg: '{{ ansible_env }}'
+
+  roles:
+    - common
+    - python
+    - java
+    - javascript
+
+  environment:
+    http_proxy:  '{{http_proxy | default ("") }}'
+    https_proxy: '{{https_proxy | default ("") }}'
+    socks_proxy: '{{socks_proxy | default ("") }}'
+    no_proxy:    '{{no_proxy | default ("") }}'

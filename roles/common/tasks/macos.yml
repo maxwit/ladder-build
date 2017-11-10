@@ -1,0 +1,59 @@
+---
+# tasks file for common
+
+- name: install GNU tools
+  homebrew:
+    name: '{{ item }}'
+    state: present
+    install_options: with-default-names
+  with_items:
+    - bash
+    - coreutils
+    - findutils
+    - gnu-tar
+    - gnu-sed
+    - gawk
+
+- name: install bash completion
+  homebrew:
+    name: '{{ item }}-completion'
+    state: present
+  with_items:
+    - apm-bash
+    - bash
+    - cargo
+    - django
+    - docker
+    - docker-compose
+    - docker-machine
+    - gem
+    - gradle
+    - grunt
+    - maven
+    - pip
+    - rustc
+    - spring
+    - vagrant
+
+- name: touch bash profiles
+  file:
+    path: '{{ ansible_env.HOME }}/{{ item }}'
+    state: touch
+  with_items:
+    - '.bashrc'
+    - '.bash_profile'
+
+- name: update .bashrc
+  lineinfile:
+    line: '{{ item }}'
+    dest: '{{ ansible_env.HOME }}/.bashrc'
+  with_items:
+    - 'ls --color'
+    - 'PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"'
+    - 'PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"'
+    - '[ -f $(brew --prefix)/etc/bash_completion ] && . $(brew --prefix)/etc/bash_completion'
+
+- name: update .bashrc
+  lineinfile:
+    line: 'source ~/.bashrc'
+    dest: '{{ ansible_env.HOME }}/.bash_profile'

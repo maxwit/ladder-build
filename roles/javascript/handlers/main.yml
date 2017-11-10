@@ -1,0 +1,12 @@
+---
+# handlers file for roles/javascript
+
+- name: show node info
+  debug:
+    msg: '{{ nodes_info.results[0] }}'
+
+# - set_fact:
+#     node_bin: '{{ node.stdout | dirname }}'
+#
+# - debug:
+#     msg: '{{ node_bin }}'

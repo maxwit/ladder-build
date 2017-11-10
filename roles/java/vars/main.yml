@@ -1,0 +1,12 @@
+---
+# vars file for java
+
+java_lang_list:
+  - java
+  - maven
+  - gradle
+  - springboot
+  # - groovy
+  # - scala
+  # - kotlin
+  # - sbt
