@@ -48,7 +48,7 @@
     line: '{{ item }}'
     dest: '{{ ansible_env.HOME }}/.bashrc'
   with_items:
-    - 'ls --color'
+    - 'export CLICOLOR=1'
     - 'PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"'
     - 'PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"'
     - '[ -f $(brew --prefix)/etc/bash_completion ] && . $(brew --prefix)/etc/bash_completion'
