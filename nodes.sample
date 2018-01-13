@@ -2,10 +2,10 @@
 localhost
 # ansible_connection=local
 
-[slaves]
-xenial-node4
+# [slaves]
+# xenial-node4
 
-[master:vars]
-http_proxy  = 127.0.0.1:38251
-https_proxy = 127.0.0.1:38251
-socks_proxy = 127.0.0.1:38250
+# [master:vars]
+# http_proxy  = 127.0.0.1:38251
+# https_proxy = 127.0.0.1:38251
+# socks_proxy = 127.0.0.1:38250
