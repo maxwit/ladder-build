@@ -1,6 +1,5 @@
 [master]
-localhost
-# ansible_connection=local
+localhost ansible_connection=local
 
 # [slaves]
 # xenial-node4

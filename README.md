@@ -1,7 +1,6 @@
 # ladder-build
 
 ```bash
-ssh-copy-id localhost
-cp nodes.sample nodes
-ansible-playbook -i nodes site.yml
+cp -v hosts.sample hosts
+ansible-playbook -i hosts site.yml
 ```
