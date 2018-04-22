@@ -7,7 +7,7 @@
   register: nvm
 
 - name: install nvm
-  include_tasks: nvm.yml
+  shell: curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
   when: not nvm.stat.exists
 
 # TODO: --lts=carbon/boron
@@ -20,8 +20,6 @@
 - name: get the path of default node
   shell: '. {{ ansible_env.HOME }}/.nvm/nvm.sh && nvm use --silent --lts && which node'
   changed_when: false
-  # with_items: [ '{{ node_install_list }}' ]
-  # notify: show node info
   register: nodes_info
 
 # - set_fact:
