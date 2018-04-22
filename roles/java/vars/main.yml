@@ -6,7 +6,7 @@ java_lang_list:
   - maven
   - gradle
   - springboot
-  # - groovy
-  # - scala
-  # - kotlin
-  # - sbt
+  - groovy
+  - scala
+  - kotlin
+  - sbt

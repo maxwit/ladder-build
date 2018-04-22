@@ -8,7 +8,6 @@
     install_options: with-default-names
   with_items:
     - bash
-    - coreutils
     - findutils
     - gnu-tar
     - gnu-sed
@@ -33,7 +32,6 @@
     - pip
     - rustc
     - spring
-    - vagrant
 
 - name: touch bash profiles
   file:
@@ -49,7 +47,6 @@
     dest: '{{ ansible_env.HOME }}/.bashrc'
   with_items:
     - 'export CLICOLOR=1'
-    - 'PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"'
     - 'PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"'
     - '[ -f $(brew --prefix)/etc/bash_completion ] && . $(brew --prefix)/etc/bash_completion'
 

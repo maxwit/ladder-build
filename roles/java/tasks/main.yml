@@ -7,7 +7,7 @@
   register: st
 
 - name: install sdkman
-  include_tasks: sdkman.yml
+  shell: curl -s https://get.sdkman.io | bash
   when: not st.stat.exists
 
 - name: install java-based languages
