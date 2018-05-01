@@ -1,5 +1,5 @@
 ---
-- hosts: master
+- hosts: all
 
   vars:
     - pm_become: yes
@@ -13,12 +13,14 @@
 
   roles:
     - common
-    - python
+    - cxx
+    - go
     - java
     - javascript
+    - python
 
-  environment:
-    http_proxy:  '{{http_proxy | default ("") }}'
-    https_proxy: '{{https_proxy | default ("") }}'
-    socks_proxy: '{{socks_proxy | default ("") }}'
-    no_proxy:    '{{no_proxy | default ("") }}'
+  # environment:
+  #   http_proxy:  '{{http_proxy | default ("") }}'
+  #   https_proxy: '{{https_proxy | default ("") }}'
+  #   socks_proxy: '{{socks_proxy | default ("") }}'
+  #   no_proxy:    '{{no_proxy | default ("") }}'

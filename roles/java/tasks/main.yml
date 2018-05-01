@@ -10,7 +10,7 @@
   shell: curl -s https://get.sdkman.io | bash
   when: not st.stat.exists
 
-- name: install java-based languages
+- name: 'install JVM-based languages: {{ java_lang_list }}'
   shell: '. {{ ansible_env.HOME }}/.sdkman/bin/sdkman-init.sh && sdk install {{ item }}'
   environment:
     SDKMAN_DIR: '{{ ansible_env.HOME }}/.sdkman'

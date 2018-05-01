@@ -5,6 +5,7 @@ localhost ansible_connection=local
 # xenial-node4
 
 # [master:vars]
+# ansible_python_interpreter=/usr/bin/python3
 # http_proxy  = 127.0.0.1:38251
 # https_proxy = 127.0.0.1:38251
 # socks_proxy = 127.0.0.1:38250

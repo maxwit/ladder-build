@@ -32,7 +32,7 @@
 # - debug:
 #     msg: '{{ exec_list }}'
 
-- name: install JavaScript utilities
+- name: 'install JavaScript utilities: {{ util_install_list }}'
   vars:
     bin_dir: '{{ nodes_info.stdout | dirname }}'
   npm:
@@ -44,4 +44,4 @@
   environment:
     NVM_DIR: '{{ ansible_env.HOME }}/.nvm'
     PATH: '{{ bin_dir }}:{{ ansible_env.PATH }}'
-  with_items: ['{{ util_install_list }}']
+  with_items: '{{ util_install_list }}'
