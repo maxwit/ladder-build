@@ -28,11 +28,13 @@
         - { candidate: scala, version: '2.12.5' }
         - { candidate: sbt, version: '1.1.4' }
         - { candidate: groovy, version: '2.4.15' }
-    - java
+    - jvm
     - fubarhouse.nodejs
     - javascript
+    # - php
     - python
     - ruby
+    - rust
 
   # environment:
   #   http_proxy:  '{{http_proxy | default ("") }}'

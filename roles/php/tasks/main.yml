@@ -11,11 +11,14 @@
   apt: name=php state=present
   # yum: name=php state=latest
   # when: ansible_distribution == "CentOS"
+
 - name: install composer
   shell: curl -o- https://getcomposer.org/installer | php -- --install-dir=$HOME/.local/bin --filename=composer
 
 - name: add $HOME/.composer to PATH
-  lineinfile: dest="{{ nvm_working_path }}/.bashrc" line="export PATH=$HOME/.composer/vendor/bin:$PATH"
+  lineinfile:
+    dest: "{{ ansible_env.HOME }}/.bashrc"
+    line: "export PATH=$HOME/.composer/vendor/bin:$PATH"
 
 # just for testing:
 # - name: init a php project
