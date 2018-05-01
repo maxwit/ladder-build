@@ -14,10 +14,25 @@
   roles:
     - common
     - cxx
-    - go
+    # - go
+    - role: Comcast.sdkman
+      # sdkman_dir: /usr/local/sdkman
+      sdkman_auto_answer: true
+      sdkman_update: true
+      sdkman_install_packages:
+        - { candidate: java, version: '8.0.163-zulu' }
+        - { candidate: maven, version: '3.5.3' }
+        - { candidate: gradle, version: '4.7' }
+        - { candidate: springboot, version: '2.0.1.RELEASE' }
+        - { candidate: kotlin, version: '1.2.41' }
+        - { candidate: scala, version: '2.12.5' }
+        - { candidate: sbt, version: '1.1.4' }
+        - { candidate: groovy, version: '2.4.15' }
     - java
+    - fubarhouse.nodejs
     - javascript
     - python
+    - ruby
 
   # environment:
   #   http_proxy:  '{{http_proxy | default ("") }}'

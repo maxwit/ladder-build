@@ -35,3 +35,5 @@
   lineinfile:
     path: '{{ ansible_env.HOME }}/.bashrc'
     line: '. {{ vew_sh | replace(ansible_env.HOME, "$HOME") }}'
+
+# ms-python.python

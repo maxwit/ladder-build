@@ -27,10 +27,9 @@
 #     {{ ansible_pkg_mgr }} name=curl state=present
 #   when: not curl_installed
 
-- name: install git/curl
+- name: 'install [git, curl]'
   become: '{{ pm_become }}'
-  action: >
-    {{ ansible_pkg_mgr }} name={{ item }} state=present
+  package: name={{ item }} state=present
   with_items:
     - git
     - curl
@@ -45,6 +44,28 @@
 #   environment:
 #     PATH: '/usr/local/bin:{{ ansible_env.PATH }}'
 
-# - name: macOS init
-#   include_tasks: macos.yml
-#   when: ansible_os_family == 'Darwin'
+- name: add repo for vscode and atom
+  include_tasks: Debian.yml
+  become: yes
+  when: ansible_os_family == 'Debian'
+
+- name: 'install {{ editor_list }}'
+  become: '{{ pm_become }}'
+  package:
+    name: '{{ item }}'
+    state: present
+  with_items: '{{ editor_list }}'
+  when: ansible_os_family != 'Darwin'
+  retries: 3
+
+- name: 'install {{ editor_list }}'
+  homebrew_cask:
+    name: '{{ item }}'
+    state: present
+  with_items: '{{ editor_list }}'
+  when: ansible_os_family == 'Darwin'
+  retries: 3
+
+- name: macOS init
+  include_tasks: macos.yml
+  when: ansible_os_family == 'Darwin'

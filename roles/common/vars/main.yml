@@ -1,2 +1,6 @@
 ---
 # vars file for common
+
+editor_list:
+  - visual-studio-code
+  - atom
