@@ -31,7 +31,7 @@
 
 - name: source virtualenvwrapper.sh
   vars:
-    vew_sh: "{{ vew_info.stdout_lines[0].split()[1] | regex_replace('/lib/.*', '/bin') }}/virtualenvwrapper.sh"
+    vew_sh: "{{ vew_info.stdout.split()[1] | regex_replace('/lib/.*', '/bin') }}/virtualenvwrapper.sh"
   lineinfile:
     path: '{{ ansible_env.HOME }}/.bashrc'
     line: '. {{ vew_sh | replace(ansible_env.HOME, "$HOME") }}'
