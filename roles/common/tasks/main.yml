@@ -46,7 +46,6 @@
 
 - name: add repo for vscode and atom
   include_tasks: Debian.yml
-  become: yes
   when: ansible_os_family == 'Debian'
 
 - name: 'install {{ editor_list }}'

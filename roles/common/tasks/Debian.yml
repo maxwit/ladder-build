@@ -1,4 +1,5 @@
 - name: Add an vscode signing key
+  become: yes
   apt_key:
     # id: 473041FA
     url: https://packages.microsoft.com/keys/microsoft.asc
@@ -6,10 +7,12 @@
     state: present
 
 - name: add vscode repo
+  become: yes
   apt_repository:
     repo: deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main
     state: present
 
 - name: add atom repo
+  become: yes
   apt_repository:
     repo: ppa:webupd8team/atom
