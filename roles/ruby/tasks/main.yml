@@ -12,7 +12,8 @@
   gem:
     name: '{{ item }}'
     state: present
-    user_install: yes
+    user_install: no
+    repository: https://gems.ruby-china.org/
   with_items:
     - bundler
     - jekyll
