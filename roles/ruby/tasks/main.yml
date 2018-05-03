@@ -7,6 +7,20 @@
     name: ruby
     state: present
 
+- name: install ruby-dev
+  become: '{{ pm_become }}'
+  package:
+    name: ruby-dev
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: install ruby-devel
+  become: '{{ pm_become }}'
+  package:
+    name: ruby-devel
+    state: present
+  when: ansible_os_family == 'Redhat'
+
 - name: install bundler and jekyll
   become: '{{ pm_become }}'
   gem:
