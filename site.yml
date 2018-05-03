@@ -1,12 +1,9 @@
 ---
 - hosts: all
 
-  vars:
-    - pm_become: yes
+  vars_files:
+   - ['vars/{{ ansible_os_family }}.yml', 'vars/defaults.yml']
 
-  # vars_files:
-  #  - "vars/{{ ansible_os_family | lower }}.yml"
-  #
   # tasks:
   #  - debug:
   #      msg: '{{ ansible_env }}'

@@ -1,11 +1,6 @@
 ---
 # tasks file for common
 
-# FIXME
-- set_fact:
-    pm_become: no
-  when: ansible_os_family == 'Darwin'
-
 # - name: change default sh to bash
 #   become: yes
 #   file:
