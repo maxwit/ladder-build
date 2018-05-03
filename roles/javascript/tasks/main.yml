@@ -13,6 +13,8 @@
   args:
     warn: no
   with_items: [ '{{ node_install_list }}' ]
+  environment:
+    NVM_DIR: '{{ ansible_env.HOME }}/.nvm'
 
 # TODO: set default
 
@@ -22,6 +24,8 @@
     warn: no
   changed_when: false
   register: nodes_info
+  environment:
+    NVM_DIR: '{{ ansible_env.HOME }}/.nvm'
 
 - name: 'install JavaScript utilities: {{ util_install_list }}'
   vars:
@@ -32,10 +36,10 @@
     state: present
     # registry: https://registry.npm.taobao.org
     executable: '{{ bin_dir }}/npm'
+  with_items: '{{ util_install_list }}'
   environment:
     NVM_DIR: '{{ ansible_env.HOME }}/.nvm'
     PATH: '{{ bin_dir }}:{{ ansible_env.PATH }}'
-  with_items: '{{ util_install_list }}'
 
 # - name: 'install JavaScript utilities: {{ util_install_list }}'
 #   npm:
