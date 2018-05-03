@@ -1,2 +1,7 @@
 ---
 # tasks file for rust
+
+# FIXME
+- name: install rustup
+  shell: curl https://sh.rustup.rs -sSf | bash -s -- -y
+  creates: '{{ ansible_env.HOME }}/.cargo/env'
