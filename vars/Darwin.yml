@@ -1,2 +1,1 @@
-vars:
-  - pm_become: no
+pm_become: no
