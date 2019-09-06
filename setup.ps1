@@ -4,8 +4,8 @@ if (![System.IO.File]::Exists("~/.gitconfig")) {
     $fullname = $env:username
     $username = $fullname
 
-	git config --global user.name "$fullname"
-	git config --global user.email $username@gmail.com
+    git config --global user.name "$fullname"
+    git config --global user.email $username@gmail.com
 }
 
 
